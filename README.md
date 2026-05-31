@@ -46,7 +46,7 @@ graph TD
     YTDL[yt-dlp Downloader]:::local
     Whisper[Local Whisper Engine]:::local
     Chroma[(ChromaDB Vector Store)]:::local
-    Gemini[Gemini LLM (with Fallbacks)]:::external
+    Gemini["Gemini LLM (with Fallbacks)"]:::external
 
     %% Relations
     UI -->|Connects Instagram| API
