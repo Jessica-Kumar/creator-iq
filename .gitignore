@@ -1,0 +1,12 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+dist/
+chroma_db/
+temp_audio.*
+*_metadata.json
+*.html
+page_source.html
