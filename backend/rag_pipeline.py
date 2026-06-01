@@ -37,9 +37,9 @@ def retrieve(state: RAGState) -> Dict:
     return {"context": "\n\n".join(context_parts)}
 
 def generate_answer(state: RAGState) -> Dict:
-    preferred_model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    preferred_model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
     candidates = [preferred_model]
-    for fallback in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.5-flash"]:
+    for fallback in ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
         if fallback not in candidates:
             candidates.append(fallback)
             

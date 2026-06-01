@@ -412,10 +412,17 @@ Hashtags: {', '.join(metadata.get('hashtags', [])) if isinstance(metadata.get('h
 [Transcript]
 """
 
+    # Delete old chunks for this video ID to prevent overlap/leakage of previous runs
+    try:
+        collection.delete(where={"video_id": video_id})
+        logging.info(f"Deleted existing chunks for {video_id} from ChromaDB.")
+    except Exception as e:
+        logging.warning(f"Could not delete existing chunks for {video_id}: {e}")
+
     for i, chunk in enumerate(chunks):
         enriched_chunk = meta_summary + chunk if i == 0 else chunk
         embedding = embed_model.encode(enriched_chunk).tolist()
-        collection.add(
+        collection.upsert(
             embeddings=[embedding],
             documents=[enriched_chunk],
             metadatas=[{**db_metadata, "chunk_index": i, "video_id": video_id}],
