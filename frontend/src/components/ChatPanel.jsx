@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Citation from './Citation'
 
-export default function ChatPanel({ sessionId }) {
+export default function ChatPanel({ sessionId, metadata }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [streaming, setStreaming] = useState(false)
@@ -11,12 +11,18 @@ export default function ChatPanel({ sessionId }) {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }) 
   }, [messages])
 
+  const erA = metadata?.video_0?.engagement_rate ?? 0;
+  const erB = metadata?.video_1?.engagement_rate ?? 0;
+  const higherVideo = erA >= erB ? "A" : "B";
+  const lowerVideo = erA >= erB ? "B" : "A";
+  const lowerMetricName = lowerVideo === "A" ? "subscriber count" : "follower count";
+
   const suggestions = [
-    "Why did Video A get more engagement than Video B?",
+    `Why did Video ${higherVideo} get more engagement than Video ${lowerVideo}?`,
     "What's the engagement rate of each?",
     "Compare the hooks in the first 5 seconds.",
-    "Who's the creator of Video B and what's their follower count?",
-    "Suggest improvements for B based on what worked in A."
+    `Who's the creator of Video ${lowerVideo} and what's their ${lowerMetricName}?`,
+    `Suggest improvements for ${lowerVideo} based on what worked in ${higherVideo}.`
   ]
 
   const formatMessageContent = (content) => {

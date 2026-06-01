@@ -230,7 +230,7 @@ export default function App() {
             <VideoCard data={metadata?.video_1} label="Video B (Instagram)" isYouTube={false} />
           </div>
           <div className="lg:w-1/2 h-full flex flex-col border border-slate-800 bg-slate-950/30 rounded-2xl overflow-hidden shadow-xl">
-            <ChatPanel sessionId={sessionId} />
+            <ChatPanel sessionId={sessionId} metadata={metadata} />
           </div>
         </div>
       )}
